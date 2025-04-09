@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+:root {
+  --base-color: #67aa82;
+  --main-color: #f2f2f2;
+  --accent-color: #159741;
+}
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+body {
+  font-family: Arial;
+  background-color: var(--base-color);
+  padding: 50px;
+}
+/*-------------------------
+  ナビゲーション
+-------------------------*/
+nav {
+  text-align: center;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  list-style: none;
+  display: inline-block;
+  width: 18%;
+  min-width: 90px;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+nav ul li.current a {
+  color: #f33135;
+}
+nav ul li a:hover {
+  color: #e7da66;
+}
+/*-------------------------
+  ログイン画面
+-------------------------*/
+.login {
+  margin: 20px auto;
+  width: 300px;
+}
+.login-screen {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+.app-title {
+  text-align: center;
+  color: #777;
+}
+.login-form {
+  text-align: center;
+}
+.control-group {
+  margin-bottom: 10px;
+}
+input {
+  text-align: center;
+  background-color: #ecf0f1;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: 200;
+  padding: 10px 0;
+  width: 250px;
+  transition: border 0.5s;
+}
+input:focus {
+  border: 2px solid var(--base-color);
+  box-shadow: none;
+}
+.btn {
+  border: 2px solid transparent;
+  background: var(--base-color);
+  color: #000;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #446e56;
+}
+
+.login-link {
+  font-size: 12px;
+  color: #444;
+  display: block;
+  margin-top: 12px;
+}
+
+/*-------------------------
+  登録画面
+-------------------------*/
+.register {
+  margin: 20px auto;
+  width: 300px;
+}
+.register-screen {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+.app-title {
+  text-align: center;
+  color: #777;
+}
+.register-form {
+  text-align: center;
+}
+/*-------------------------
+  カレンダー
+-------------------------*/
+.home-page {
+  background-color: var(--base-color);
+}
+
+.container {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+a {
+  text-decoration: none;
+}
+th {
+  height: 30px;
+  text-align: center;
+}
+td {
+  height: 100px;
+}
+.today {
+  background: orange !important;
+}
+th:nth-of-type(1),
+td:nth-of-type(1) {
+  color: red;
+}
+th:nth-of-type(7),
+td:nth-of-type(7) {
+  color: blue;
+}
