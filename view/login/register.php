@@ -10,7 +10,7 @@ require_once __DIR__ . '../../../Models/hsc.php';
         <link rel="stylesheet" href="../../css/style.css">
         <title>登録画面</title>
     </head>
-    <body>
+    <body class="home-page">
         <div class="register">
             <div class="register-screen">
                 <div class="app-title">

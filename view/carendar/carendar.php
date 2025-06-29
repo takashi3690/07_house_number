@@ -1,3 +1,10 @@
+<?php
+session_start();
+require_once __DIR__ . '../../../Models/carendar.php';
+require_once __DIR__ . '../../../Models/trnsactions_budget.php';
+require_once __DIR__ . '../../../Models/hsc.php';
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -8,74 +15,61 @@
         <title>家計簿</title>
     </head>
     <body>
-        <div class="container">
+        <header>
             <h1>家計簿</h1>
+        </header>
+        <div class="container">
+            <div class="main-content">
+                <aside class="sidebar">
+                    <ul>
+                        <li><a class="current" href="javascript:void(0);">Home</a></li>
+                        <li><a href="../../Models/logout.php">ログアウト</a></li>
+                        <li><a href="../mypage/mypage.php">マイページ</a></li>
+                        <li><a href="../categories/category_list.php">カテゴリ管理</a></li>
+                        <li><a href="budget.php">予算設定</a></li>
+                        <li><a href="transactions.php">支出登録</a></li>
+                    </ul>
+                </aside>
+                <div class="container-carendar mt-5">
+                    <h3><?= h($year) ?>年<?= h($month) ?>月の予算合計</h3>
+                    <p class="budget-total"> 合計予算: <a href="../transactions-detail/budget_detail.php?year=<?= $year ?>&month=<?= $month ?>" style="text-decoration:none; color:inherit;"> ￥<?= number_format($monthlyBudgetTotal) ?> 円 </a>
+                    </p>
+                    <h3><?= h($year) ?>年<?= h($month) ?>月の支出</h3>
+                    <p class="expense-total"> 合計支出: ￥<?= number_format($monthlyExpenseTotal) ?> 円 </p>
+                    <h3><?= h($year) ?>年<?= h($month) ?>予算残高</h3>
+                    <p> 予算残高: <span class="<?= $balance < 0 ? 'text-danger' : 'text-success' ?>"> ￥<?= number_format($balance) ?> 円 </span>
+                    </p>
+                    <h3 class="mb-4">
+                        <a href="?year=<?php echo $prevMonth->format('Y'); ?>&month=<?php echo $prevMonth->format('m'); ?>">&lt;</a>
+                        <span class="mx-3"><?php echo $year; ?>年 <?php echo $month; ?>月</span>
+                        <a href="?year=<?php echo $nextMonth->format('Y'); ?>&month=<?php echo $nextMonth->format('m'); ?>">&gt;</a>
+                    </h3>
+                    <table class="table table-bordered">
+                        <tr> <?php foreach ($weekLabels as $label): ?> <th><?php echo $label; ?></th> <?php endforeach; ?> </tr> <?php foreach ($carendar as $week): ?> <tr> <?php foreach ($week as $i => $day): ?> <?php
+                    $class = '';
+                    if ($day === '') {
+                        $class = '';
+                    } elseif ($i == 0) {
+                        $class = 'sunday';
+                    } elseif ($i == 6) {
+                        $class = 'saturday';
+                    }
+                    // 今日の日付にクラス追加
+                    if ($day !== '' && $day == date('j') && $month == date('n') && $year == date('Y')) {
+                        $class .= ($class ? ' ' : '') . 'today';
+                    }
+                ?> <td class="<?php echo trim($class); ?>"> <?php echo $day; ?> <?php if ($day !== '' && isset($dailyCategoryExpenses[$day])): ?> <ul class="expense-list" style="list-style: none; padding-left: 0;"> <?php foreach ($dailyCategoryExpenses[$day] as $category => $amount): ?> <li>
+                                        <span class="category-name">
+                                            <a href="detail.php?date=<?= $year ?>-<?= sprintf('%02d', $month) ?>-<?= sprintf('%02d', $day) ?>&category=<?= urlencode($category) ?>" class="expense-amount text-danger small"> ￥<?= number_format($amount) ?> </a>
+                                        </span>
+                                    </li> <?php endforeach; ?> </ul> <?php endif; ?> </td> <?php endforeach; ?> </tr> <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
         </div>
-        <nav class="menu">
-            <ul>
-                <li><a class=”current” href=”#”>Home</a></li>
-                <li><a href=”#”>ログアウト</a></li>
-                <li><a href=”#”>ユーザ名</a></li>
-            </ul>
-        </nav>
-        <div class="container-carendar mt-5">
-            <h3 class="mb-4"><a href="#">&lt;</a><span class="mx-3">2023年 11月</span><a href="#">&gt;</a></h3>
-            <table class="table table-bordered">
-                <tr>
-                    <th>日</th>
-                    <th>月</th>
-                    <th>火</th>
-                    <th>水</th>
-                    <th>木</th>
-                    <th>金</th>
-                    <th>土</th>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
-                    <td>15</td>
-                    <td class="today">16</td>
-                    <td>17</td>
-                    <td>18</td>
-                </tr>
-                <tr>
-                    <td>19</td>
-                    <td>20</td>
-                    <td>21</td>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <td>26</td>
-                    <td>27</td>
-                    <td>28</td>
-                    <td>29</td>
-                    <td>30</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
+        <!-- フッター -->
+        <footer>
+            <p>&copy; 2025 MyWebsite</p>
+        </footer>
     </body>
 </html>

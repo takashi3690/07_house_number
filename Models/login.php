@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
+session_start();
 require_once(dirname(__FILE__) . '/DB.php');
+
 
 $errors = [];
 $login_email = '';
@@ -9,40 +11,40 @@ $login_pass = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $login_email = $_POST['login_email'] ?? '';
-    $login_pass = $_POST['login_pass'] ?? '';
+try {
 
-    if (empty($login_email) || empty($login_pass)) {
-        $errors[] = "メールアドレスとパスワードは必須です。";
-    }
+$email = $_POST['login_email'] ?? '';
+$pass = $_POST['login_pass'] ?? '';
 
-    // エラーがなければ、ユーザー情報の照合
-    if (empty($errors)) {
-        try {
+$db = new DB();
+$pdo = $db->getPDO();
 
-            $db = new DB;
-            $pdo = $db->getPDO();
-            $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
-            $stmt->bindParam(':email', $login_email, PDO::PARAM_STR);
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
+$stmt->bindParam(':email', $email);
+$stmt->execute();
 
-                if ($user && password_verify($login_pass, $user['password'])) {
-                    header('Location: ../../view/carendar/carendar.php');
-                } else {
-                    echo 'ログインに失敗しました';
-                }
-        } catch (PDOException $e) {
-            header('Content-Type: text/plain; charset=UTF-8', true, 500);
-            exit($e->getMessage());
-        }
-
-    }
+$user = $stmt->fetch();
+if (!$user) {
+    $errors[] = 'メールアドレスが登録されていません';
+} elseif (!password_verify($pass, $user['password'])) {
+    // パスワードが間違っている場合
+    $errors[] = 'パスワードが間違っています';
 }
 
+$_SESSION['user'] = [
+    'id'    => $user['id'],
+    'username'  => $user['username'],
+    'email' => $user['email']
+];
 
+header('Location: ../carendar/carendar.php');
+exit;
 
-
+} catch (PDOException $e) {
+    header('Content-Type: text/plain; charset=UTF-8', true, 500);
+    exit($e->getMessage());
+}
+}
 
 
 ?>

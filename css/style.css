@@ -14,34 +14,11 @@
 }
 body {
   font-family: Arial;
-  background-color: var(--base-color);
   padding: 50px;
 }
-/*-------------------------
-  ナビゲーション
--------------------------*/
-nav {
-  text-align: center;
-}
-nav ul {
-  margin: 0;
-  padding: 0;
-}
-nav ul li {
-  list-style: none;
-  display: inline-block;
-  width: 18%;
-  min-width: 90px;
-}
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-}
-nav ul li.current a {
-  color: #f33135;
-}
-nav ul li a:hover {
-  color: #e7da66;
+
+.home-page {
+  background-color: var(--base-color);
 }
 /*-------------------------
   ログイン画面
@@ -104,9 +81,66 @@ input:focus {
 
 .login-link {
   font-size: 12px;
-  color: #3dd;
+  color: #2f282f;
   display: block;
   margin-top: 12px;
+}
+
+/*-------------------------
+  サイドバー
+-------------------------*/
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #4caf50;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  color: #333;
+}
+/*-------------------------
+  ヘッダー
+-------------------------*/
+/* 共通のヘッダースタイル */
+header {
+  background-color: var(--base-color); /* ヘッダー背景色 */
+  color: white; /* 文字色 */
+  text-align: center; /* 中央揃え */
+  padding: 20px 0; /* 上下の余白を20pxに設定 */
+  top: 0;
+  width: 100%; /* ヘッダー幅を画面全体に広げる */
+  z-index: 1000; /* 重なり順を上に */
+  font-family: Arial, sans-serif; /* フォントファミリーを統一 */
+}
+
+header h1 {
+  margin: 0; /* 上下の余白をリセット */
+  font-size: 2.5rem; /* タイトル文字サイズを統一 */
+  font-weight: 700; /* 太字 */
+}
+
+header .sub-title {
+  font-size: 1.2rem; /* サブタイトル文字サイズ */
+  font-weight: 400; /* 普通の太さ */
+  margin-top: 5px; /* サブタイトルに少しスペース */
 }
 
 /*-------------------------
@@ -131,33 +165,427 @@ input:focus {
 /*-------------------------
   カレンダー
 -------------------------*/
-.home-page {
-  background-color: var(--base-color);
+/* メインコンテンツの設定 */
+.main-content {
+  display: flex; /* 横並びにする */
+  justify-content: center; /* コンテンツを中央に配置 */
+  gap: 20px; /* サイドバーとカレンダーの間にスペース */
+  margin-top: 20px;
+  width: 100%; /* 幅を100%にして親コンテナ内での制約を適用 */
 }
 
-.container {
-  text-align: center;
-  margin-bottom: 25px;
+/* カレンダーのスタイル */
+.container-carendar {
+  flex: 1; /* 残りのスペースを埋める */
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 20px; /* 左側に少し余白 */
+  width: 100%; /* カレンダーを親コンテナいっぱいに広げる */
+  height: 100%; /* 高さを100%に設定 */
 }
 
-a {
-  text-decoration: none;
+/* カレンダーテーブル */
+.table {
+  width: 100%; /* テーブルを親コンテナいっぱいに広げる */
+  table-layout: fixed; /* セルの幅を均等に配置 */
+  margin-top: 20px;
 }
-th {
-  height: 30px;
-  text-align: center;
-}
+
+th,
 td {
-  height: 100px;
+  text-align: center;
+  padding: 10px; /* セルの余白を追加して広くする */
 }
+
+/* 曜日列の調整 */
+th {
+  font-size: 1.2rem;
+  background-color: #f0f0f0;
+}
+
+td {
+  font-size: 1.1rem;
+  height: 100px; /* 日付セルの高さを調整 */
+}
+
+.sunday {
+  color: red !important;
+}
+
+.saturday {
+  color: blue !important;
+}
+
 .today {
   background: orange !important;
 }
-th:nth-of-type(1),
-td:nth-of-type(1) {
-  color: red;
+
+ul.budget-list {
+  list-style: none;
+  padding-left: 0;
+  color: #0095d9;
 }
-th:nth-of-type(7),
-td:nth-of-type(7) {
-  color: blue;
+
+p.budget-total {
+  margin-top: 1rem;
+  color: #007bff;
+  font-weight: bold;
+}
+
+p.expense-total {
+  margin-top: 1rem;
+  color: #d9534f;
+  font-weight: bold;
+}
+/*-------------------------
+  マイページ
+-------------------------*/
+/* サイドバー */
+.main-content {
+  display: flex;
+  flex: 1;
+  margin-top: 20px;
+}
+
+/* メインコンテンツ */
+.profile-section {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  margin-left: 20%;
+}
+
+.profile-section .user-info {
+  display: flex;
+  justify-content: center; /* 全体を中央に寄せる */
+  align-items: center; /* 垂直中央揃え */
+  gap: 30px; /* 画像とテキストの間のスペース */
+  margin-bottom: 30px;
+}
+
+.profile-section .profile-image img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: auto;
+}
+
+.profile-section .user-details .user-data-table {
+  font-size: 1.1rem;
+  text-align: left;
+  margin: 5px 0;
+}
+
+.profile-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.profile-actions .button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.profile-actions .button:hover {
+  background-color: #45a049;
+}
+
+/* フッター */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.btn-btn-primary {
+  border: 2px solid transparent;
+  background: var(--base-color);
+  color: #000;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 80%;
+  margin: auto;
+  font-weight: bold;
+}
+.btn-btn-image-primary {
+  border: 2px solid transparent;
+  background: var(--base-color);
+  color: #000;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 150px;
+  margin: 0 auto;
+  font-weight: bold;
+}
+.btn-btn-danger {
+  border: 2px solid transparent;
+  background: #d3381c;
+  color: #000;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 150px;
+  margin: 0 auto;
+  font-weight: bold;
+}
+/*-------------------------
+  マイページ編集
+-------------------------*/
+.edit-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+input[type="text"],
+input[type="email"] {
+  border: none;
+  border-bottom: 2px solid #67aa82; /* 線の色と太さ */
+  padding: 8px 0;
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  border-bottom-color: #159741; /* フォーカス時に色を変える */
+}
+
+/*-------------------------
+  カテゴリリスト
+-------------------------*/
+.category-list {
+  display: flex;
+  justify-content: center; /* 全体を中央に寄せる */
+  align-items: center; /* 垂直中央揃え */
+  gap: 30px; /* 画像とテキストの間のスペース */
+  margin-bottom: 30px;
+  width: 70%;
+  border: solid;
+  border-radius: 10px;
+  color: var(--base-color);
+}
+
+.category-add-btn {
+  display: block;
+  margin-left: 180px;
+  width: 220px;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #28a745;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.category-add-btn:hover {
+  background-color: #28a770;
+}
+.category-delete-btn {
+  all: unset;
+  display: inline-block;
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  margin-left: 10px;
+  width: 50px;
+  height: 27px;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+.category-delete-btn:hover {
+  background-color: #dc3570;
+}
+.category-edit-btn {
+  display: inline-block;
+  border-style: solid;
+  border-radius: 5px;
+  margin-left: 10px;
+  width: 50px;
+  color: black;
+  background-color: #007bff;
+  border-width: 1px;
+  border-color: darkgray;
+  text-decoration: none;
+}
+.category-edit-btn:hover {
+  background-color: #007bbb;
+}
+
+/*-------------------------
+  カテゴリ追加
+-------------------------*/
+.add-category-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-right: -2px;
+}
+/*-------------------------
+  予算画面
+-------------------------*/
+.budget-list {
+  display: flex;
+  justify-content: center; /* 全体を中央に寄せる */
+  align-items: center; /* 垂直中央揃え */
+  gap: 30px; /* 画像とテキストの間のスペース */
+  margin-bottom: 30px;
+  width: 90%;
+  height: 100%;
+  border: solid;
+  border-radius: 10px;
+  color: var(--base-color);
+}
+
+.budget-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 80%;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-select,
+.form-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.form-option {
+  padding: 4px;
+}
+
+.form-button {
+  background-color: var(--base-color);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 80%;
+}
+
+.form-button:hover {
+  background-color: #28a770;
+}
+
+/*-------------------------
+  支出の詳細
+-------------------------*/
+.btn-danger {
+  width: 70%;
+  border-radius: 5px;
+  background-color: #d3381c;
+  border-color: #d3381c;
+}
+
+.btn-danger:hover {
+  background-color:#e14024;
+}
+
+/*-------------------------
+  予算一覧
+-------------------------*/
+.detail_h2 {
+  margin-left: 45%;
+}
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.budget-summary {
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 20px;
+}
+
+.budget-table th, .budget-table td {
+  text-align: left;
+  padding: 12px;
+}
+
+.budget-total-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.budget-total-link {
+  color: #d63384;
+  text-decoration: none;
+}
+
+.budget-total-link:hover {
+  text-decoration: underline;
 }
